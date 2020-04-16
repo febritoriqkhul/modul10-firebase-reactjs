@@ -21,6 +21,19 @@ const Login = () => {
             });
     };
 
+    const handleLoginGoogle = e => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase
+            .auth().
+            signInWithPopup(provider).
+            then(res => {
+                if (res.user) Auth.setLoggedIn(true);
+            })
+            .catch(e => {
+                setErrors(e.message);
+            });
+    }
+
     return (
         <div>
             <h1>Login</h1>
@@ -40,7 +53,7 @@ const Login = () => {
                     placeholder="password"
                 />
                 <hr />
-                <button class="googleBtn" type="button">
+                <button class="googleBtn" type="button" onClick={handleLoginGoogle}>
                     <img
                         src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                         alt="logo"
